@@ -12,8 +12,9 @@ class OpenAddressing
   def [](key)
     startingIndex = index(key, size)
     i = 0
-    while (@nodes[startingIndex] != nil) && (@nodes[startingIndex].key != key) && (i <= size)
+    while @nodes[startingIndex] && (@nodes[startingIndex].key != key) && (i <= size)
       startingIndex + 1 == size ? startingIndex = 0 : startingIndex += 1
+      # (startingIndex + 1) % size
       i += 1
     end
     i > size ? nil : @nodes[startingIndex].value
@@ -37,7 +38,7 @@ class OpenAddressing
         returnIndex += 1
       end
       i += 1
-      if i == array.size
+      if i >= array.size
         return -1
       end
     end
@@ -53,7 +54,7 @@ class OpenAddressing
   def resize
     placeholderArray = Array.new(@nodes.size * 2)
     @nodes.each do |x|
-      if x != nil
+      if x
         placeItem(x.key, x.value, placeholderArray)
       end
     end
