@@ -49,7 +49,7 @@ RSpec.describe BinaryHeap, type: Class do
   describe "#find(data)" do
     it "handles nil gracefully" do
       tree.insert(root, empire)
-      tree.insert(root, mad_max_2)
+      tree.insert(root, jedi)
       expect(tree.find(root, nil)).to eq nil
     end
 

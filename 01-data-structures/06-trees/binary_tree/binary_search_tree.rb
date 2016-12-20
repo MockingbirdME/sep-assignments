@@ -38,6 +38,7 @@ class BinarySearchTree
     return nil if data == nil
 
     node = find(root, data)
+    puts "delete node title: #{node.title}"
     unless hasChildren(node)
       if hasParent(node)
         if node.parent.left == node
@@ -49,7 +50,28 @@ class BinarySearchTree
       node = nil
       return
     end
-
+    if node.right.left
+      placeholder = node.right.left
+      while placeholder.left
+        placeholder = placeholder.left
+      end
+    end
+    if placeholder.right
+      placeholder.right.parent = placeholder.parent
+      placeholder.parent.left = placeholder.right
+    else
+      placeholder.parent.left = nil
+    end
+    placeholder.parent = node.parent
+    placeholder.left = node.left
+    placeholder.right = node.right
+    if @root != node
+      if node.rating > node.parent.rating
+        node.parent.right = placeholder
+      else
+        node.parenet.left = placeholder
+      end
+    end
   end
 
   # Recursive Breadth First Search

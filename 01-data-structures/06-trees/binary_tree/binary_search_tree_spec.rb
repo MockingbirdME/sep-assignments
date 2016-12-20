@@ -100,7 +100,6 @@ RSpec.describe BinarySearchTree, type: Class do
     it "handles nil gracefully" do
       expect(tree.delete(root, nil)).to eq nil
     end
-
     it "properly deletes a left node" do
       tree.insert(root, hope)
       tree.delete(root, hope.title)
@@ -139,6 +138,17 @@ RSpec.describe BinarySearchTree, type: Class do
       tree.insert(root, mad_max_2)
       tree.delete(root, mad_max_2.title)
       expect(tree.find(root, mad_max_2.title)).to be_nil
+    end
+
+    it "properly deletes a node with children" do
+      tree.insert(root, shawshank) #91
+      tree.insert(root, district) #90
+      tree.insert(root, hope)     #93
+      tree.insert(root, martian)  #92
+      tree.insert(root, empire)   #94
+      tree.delete(root, shawshank.title)
+      expect(root.right.title).to eq "The Martian"
+
     end
   end
 
