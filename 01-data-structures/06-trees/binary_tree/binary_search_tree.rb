@@ -54,16 +54,33 @@ class BinarySearchTree
 
   # Recursive Breadth First Search
   def printf(children=nil)
+    toPrint = ""
+    nextLine = []
+    toPrint += "#{@root.title}: #{@root.rating}\n"
+    nextLine << @root.left if @root.left
+    nextLine << @root.right if @root.right
+    while nextLine.length > 0
+      placeholder = []
+      nextLine.each do |x|
+        title = x.title
+        rating = x.rating
+        toPrint += "#{title}: #{rating}\n"
+        placeholder << x.left if x.left
+        placeholder << x.right if x.right
+      end
+      nextLine = placeholder
+    end
+    print toPrint
   end
 
 
   private
 
   def hasChildren(node)
-    node.right || node.left ? true : false
+    node.right || node.left
   end
 
   def hasParent(node)
-    node.parent ? true : false
+    node.parent
   end
 end
