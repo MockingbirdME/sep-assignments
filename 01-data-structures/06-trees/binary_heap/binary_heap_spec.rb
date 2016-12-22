@@ -92,7 +92,7 @@ RSpec.describe BinaryHeap, type: Class do
 
     it "properly deletes a left node" do
       tree.insert(root, aliens)
-      tree.delete(root, aliens)
+      tree.delete(root, aliens.title)
       expect(tree.find(root, aliens.title)).to be_nil
     end
 
@@ -100,7 +100,7 @@ RSpec.describe BinaryHeap, type: Class do
       tree.insert(root, aliens)
       tree.insert(root, empire)
       tree.insert(root, alien)
-      tree.delete(root, alien)
+      tree.delete(root, alien.title)
       expect(tree.find(root, alien.title)).to be_nil
     end
 
@@ -141,39 +141,23 @@ RSpec.describe BinaryHeap, type: Class do
       expect(tree.find(root, jedi.title)).to be_nil
     end
   end
-=begin
   describe "#printf" do
      specify {
-       expected_output = "The Matrix: 87\nStar Wars: Return of the Jedi: 80\nStar Wars: A New Hope: 93\nPacific Rim: 72\nInception: 86\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nBraveheart: 78\nThe Shawshank Redemption: 91\nMad Max 2: The Road Warrior: 98\nDistrict 9: 90\n"
+       expected_output = "The Terminator: 100\nAliens: 98\nAlien: 97\nWild Strawberries: 95\nStar Wars: The Empire Strikes Back: 94\nStar Wars: A New Hope: 93\nStar Wars: The Force Awakens: 92\nApocalypse Now redux: 90\nRogue One: A Star Wars Story: 84\nStar Wars: Return of the Jedi: 80\nThe Hobbit: 67\nThe Lord of the Rings: 50\n"
+       tree.insert(root, aliens)   #
+       tree.insert(root, alien)
+       tree.insert(root, strawberries)   #
+       tree.insert(root, empire)  #
        tree.insert(root, hope)
-       tree.insert(root, empire)
-       tree.insert(root, jedi)
-       tree.insert(root, martian)
-       tree.insert(root, pacific_rim)
-       tree.insert(root, inception)
-       tree.insert(root, braveheart)
-       tree.insert(root, shawshank)
-       tree.insert(root, district)
-       tree.insert(root, mad_max_2)
+       tree.insert(root, awakens)
+       tree.insert(root, apocalypse)  #
+       tree.insert(root, rogue) #
+       tree.insert(root, jedi) #
+       tree.insert(root, hobbit) #
+       tree.insert(root, rings)
        expect { tree.printf }.to output(expected_output).to_stdout
      }
 
-     specify {
-       expected_output = "The Matrix: 87\nBraveheart: 78\nMad Max 2: The Road Warrior: 98\nPacific Rim: 72\nInception: 86\nDistrict 9: 90\nStar Wars: Return of the Jedi: 80\nThe Shawshank Redemption: 91\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nStar Wars: A New Hope: 93\n"
-       tree.insert(root, mad_max_2)
-       tree.insert(root, district)
-       tree.insert(root, shawshank)
-       tree.insert(root, braveheart)
-       tree.insert(root, inception)
-       tree.insert(root, pacific_rim)
-       tree.insert(root, martian)
-       tree.insert(root, jedi)
-       tree.insert(root, empire)
-       tree.insert(root, hope)
-       expect { tree.printf }.to output(expected_output).to_stdout
-     }
   end
-
-=end
 
 end
