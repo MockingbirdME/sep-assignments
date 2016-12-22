@@ -7,6 +7,7 @@ class BinaryHeap
   end
 
   def insert(root, data)
+#    puts "**********************************************placing #{data.title}"
     parent = root
     node = data
     while node.parent == nil
@@ -61,7 +62,7 @@ class BinaryHeap
       if replacement.right
         replacement = replacement.right
       else
-        replacement = replace.left
+        replacement = replacement.left
       end
     end
     if replacement.parent.right == replacement
@@ -72,8 +73,14 @@ class BinaryHeap
     if node.title == replacement.title
       node = nil
     else
-      node.title = replacement.title
-      node.rating = replacement.rating
+      replacement.parent = node.parent
+      replacement.left = node.left
+      replacement.right = node.right
+      if node.parent.left == node
+        node.parent.left = replacement
+      elsif node.parent.right == node
+        node.parent.right = replacement
+      end
     end
 
 
@@ -90,20 +97,41 @@ class BinaryHeap
      found ? found : nil
   end
 
-  def print(root)
-
+  def printf
+    toPrint = ""
+    nextLine = []
+    toPrint += "#{@root.title}: #{@root.rating}\n"
+    nextLine << @root.left if @root.left
+    nextLine << @root.right if @root.right
+    while nextLine.length > 0
+      placeholder = []
+      nextLine.each do |x|
+#        puts "#{x.title}: left #{x.left.title if x.left}, right #{x.right.title if x.right}"
+        title = x.title
+        rating = x.rating
+        toPrint += "#{title}: #{rating}\n"
+        placeholder << x.left if x.left
+        placeholder << x.right if x.right
+      end
+      nextLine = placeholder
+    end
+    print toPrint
   end
 
   private
 
   def leftIsOpen(node)
+#    puts "left is open, node is #{node.title}"
     left = node.left.descendants
     right = node.right.descendants
+#    puts "left descendants = #{left}, right descendants = #{right}"
     var = 2
-    while left > var
+    total = 2
+    while left > total
       var *= 2
+      total += var
     end
-    left == var && left > right ? false : true
+    ((left == total) && (left > right)) ? false : true
   end
 
 end
