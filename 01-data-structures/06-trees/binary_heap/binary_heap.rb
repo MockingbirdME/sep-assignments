@@ -7,7 +7,6 @@ class BinaryHeap
   end
 
   def insert(root, data)
-#    puts "**********************************************placing #{data.title}"
     parent = root
     node = data
     while node.parent == nil
@@ -106,7 +105,6 @@ class BinaryHeap
     while nextLine.length > 0
       placeholder = []
       nextLine.each do |x|
-#        puts "#{x.title}: left #{x.left.title if x.left}, right #{x.right.title if x.right}"
         title = x.title
         rating = x.rating
         toPrint += "#{title}: #{rating}\n"
@@ -121,10 +119,8 @@ class BinaryHeap
   private
 
   def leftIsOpen(node)
-#    puts "left is open, node is #{node.title}"
     left = node.left.descendants
     right = node.right.descendants
-#    puts "left descendants = #{left}, right descendants = #{right}"
     var = 2
     total = 2
     while left > total
