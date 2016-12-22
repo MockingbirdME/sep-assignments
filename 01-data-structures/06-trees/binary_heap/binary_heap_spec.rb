@@ -3,7 +3,7 @@ include RSpec
 require_relative 'binary_heap'
 
 RSpec.describe BinaryHeap, type: Class do
-  let (:tree) { BinaryHeap.new }
+  let (:tree) { BinaryHeap.new(root) }
   let (:aliens) { Node.new("Aliens", 98) }
   let (:apocalypse) { Node.new("Apocalypse Now redux", 90) }
   let (:alien) { Node.new("Alien", 97) }
@@ -37,54 +37,51 @@ RSpec.describe BinaryHeap, type: Class do
     end
 
     it "properly inserts a new node as a child and swaps it with it's parent if it has a greater rating" do
-      tree.insert(root, hobbit)
-      tree.insert(root, hope)
-      tree.insert(root, rings)
-      tree.insert(root, apocalypse)
+      tree.insert(root, hobbit) #67
+      tree.insert(root, hope) #93
+      tree.insert(root, rings) #50
+      tree.insert(root, apocalypse) #90
+      expect(root.right.title).to eq "Star Wars: A New Hope"
       expect(root.left.title).to eq "Apocalypse Now redux"
       expect(root.left.right.title).to eq "The Hobbit"
     end
   end
-=begin
+
   describe "#find(data)" do
-    it "handles nil gracefully" do
+    before(:each) do
+      tree.insert(root, aliens)
       tree.insert(root, empire)
+      tree.insert(root, alien)
+      tree.insert(root, strawberries)
+      tree.insert(root, hope)
       tree.insert(root, jedi)
+    end
+    it "handles nil gracefully" do
       expect(tree.find(root, nil)).to eq nil
     end
 
     it "properly finds a left node" do
-      tree.insert(root, pacific_rim)
-      expect(tree.find(root, pacific_rim.title).title).to eq "Pacific Rim"
+      expect(tree.find(root, aliens.title).title).to eq "Aliens"
     end
 
     it "properly finds a left-left node" do
-      tree.insert(root, braveheart)
-      tree.insert(root, pacific_rim)
-      expect(tree.find(root, pacific_rim.title).title).to eq "Pacific Rim"
+      expect(tree.find(root, alien.title).title).to eq "Alien"
     end
 
     it "properly finds a left-right node" do
-      tree.insert(root, donnie)
-      tree.insert(root, inception)
-      expect(tree.find(root, inception.title).title).to eq "Inception"
+      expect(tree.find(root, strawberries.title).title).to eq "Wild Strawberries"
     end
 
     it "properly finds a right node" do
-      tree.insert(root, district)
-      expect(tree.find(root, district.title).title).to eq "District 9"
+      expect(tree.find(root, empire.title).title).to eq "Star Wars: The Empire Strikes Back"
     end
 
     it "properly finds a right-left node" do
-      tree.insert(root, hope)
-      tree.insert(root, martian)
-      expect(tree.find(root, martian.title).title).to eq "The Martian"
+      expect(tree.find(root, hope.title).title).to eq "Star Wars: A New Hope"
     end
 
     it "properly finds a right-right node" do
-      tree.insert(root, empire)
-      tree.insert(root, mad_max_2)
-      expect(tree.find(root, mad_max_2.title).title).to eq "Mad Max 2: The Road Warrior"
+      expect(tree.find(root, jedi.title).title).to eq "Star Wars: Return of the Jedi"
     end
   end
 
@@ -94,46 +91,57 @@ RSpec.describe BinaryHeap, type: Class do
     end
 
     it "properly deletes a left node" do
+      tree.insert(root, aliens)
+      tree.delete(root, aliens)
+      expect(tree.find(root, aliens.title)).to be_nil
+    end
+
+    it "properly deletes a left-left node" do
+      tree.insert(root, aliens)
+      tree.insert(root, empire)
+      tree.insert(root, alien)
+      tree.delete(root, alien)
+      expect(tree.find(root, alien.title)).to be_nil
+    end
+
+    it "properly deletes a left-right node" do
+      tree.insert(root, aliens)
+      tree.insert(root, empire)
+      tree.insert(root, alien)
+      tree.insert(root, strawberries)
+      tree.delete(root, strawberries.title)
+      expect(tree.find(root, strawberries.title)).to be_nil
+    end
+
+    it "properly deletes a right node" do
+      tree.insert(root, aliens)
+      tree.insert(root, empire)
+      tree.delete(root, empire.title)
+      expect(tree.find(root, empire.title)).to be_nil
+    end
+
+    it "properly deletes a right-left node" do
+      tree.insert(root, aliens)
+      tree.insert(root, empire)
+      tree.insert(root, alien)
+      tree.insert(root, strawberries)
       tree.insert(root, hope)
       tree.delete(root, hope.title)
       expect(tree.find(root, hope.title)).to be_nil
     end
 
-    it "properly deletes a left-left node" do
-      tree.insert(root, braveheart)
-      tree.insert(root, pacific_rim)
-      tree.delete(root, pacific_rim.title)
-      expect(tree.find(root, pacific_rim.title)).to be_nil
-    end
-
-    it "properly deletes a left-right node" do
-      tree.insert(root, donnie)
-      tree.insert(root, inception)
-      tree.delete(root, inception.title)
-      expect(tree.find(root, inception.title)).to be_nil
-    end
-
-    it "properly deletes a right node" do
-      tree.insert(root, district)
-      tree.delete(root, district.title)
-      expect(tree.find(root, district.title)).to be_nil
-    end
-
-    it "properly deletes a right-left node" do
-      tree.insert(root, hope)
-      tree.insert(root, martian)
-      tree.delete(root, martian.title)
-      expect(tree.find(root, martian.title)).to be_nil
-    end
-
     it "properly deletes a right-right node" do
+      tree.insert(root, aliens)
       tree.insert(root, empire)
-      tree.insert(root, mad_max_2)
-      tree.delete(root, mad_max_2.title)
-      expect(tree.find(root, mad_max_2.title)).to be_nil
+      tree.insert(root, alien)
+      tree.insert(root, strawberries)
+      tree.insert(root, hope)
+      tree.insert(root, jedi)
+      tree.delete(root, jedi.title)
+      expect(tree.find(root, jedi.title)).to be_nil
     end
   end
-
+=begin
   describe "#printf" do
      specify {
        expected_output = "The Matrix: 87\nStar Wars: Return of the Jedi: 80\nStar Wars: A New Hope: 93\nPacific Rim: 72\nInception: 86\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nBraveheart: 78\nThe Shawshank Redemption: 91\nMad Max 2: The Road Warrior: 98\nDistrict 9: 90\n"
