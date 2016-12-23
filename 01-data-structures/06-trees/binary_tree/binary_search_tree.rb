@@ -8,9 +8,10 @@ class BinarySearchTree
 
   def insert(root, node)
     parent = root
+
     while parent.right != node && parent.left != node
       node.parent = parent
-      if parent.rating > node.rating
+      if parent.rating >= node.rating
         parent.left ? parent = parent.left : parent.left = node
       elsif parent.rating < node.rating
         parent.right ? parent = parent.right : parent.right = node
@@ -23,22 +24,18 @@ class BinarySearchTree
   def find(root, data)
     return root if root.title == data
     if root.right
-      find(root.right, data)
-    elsif root.left
-      find(root.left, data)
-    elsif root.parent && root.parent.left && root.parent.left != root
-      find(root.parent.left, data)
-    else
-      return nil
+      found = find(root.right, data)
     end
-
+    if root.left && found.nil?
+      found = find(root.left, data)
+    end
+     found ? found : nil
   end
 
   def delete(root, data)
     return nil if data == nil
 
     node = find(root, data)
-    puts "delete node title: #{node.title}"
     unless hasChildren(node)
       if hasParent(node)
         if node.parent.left == node
@@ -50,7 +47,7 @@ class BinarySearchTree
       node = nil
       return
     end
-    if node.right.left
+    if node.right && node.right.left
       placeholder = node.right.left
       while placeholder.left
         placeholder = placeholder.left
@@ -69,7 +66,7 @@ class BinarySearchTree
       if node.rating > node.parent.rating
         node.parent.right = placeholder
       else
-        node.parenet.left = placeholder
+        node.parent.left = placeholder
       end
     end
   end
@@ -96,6 +93,10 @@ class BinarySearchTree
   end
 
 
+
+
+
+
   private
 
   def hasChildren(node)
@@ -105,4 +106,30 @@ class BinarySearchTree
   def hasParent(node)
     node.parent
   end
+end
+
+require 'benchmark'
+def benchmarks
+  arry = []
+  i = 1
+  root = Node.new("zero", 50000)
+  100000.times do
+    name = "number #{i}"
+    number = (Random.rand *10000000).floor + i
+    var = Node.new(name, number)
+    arry << var
+    i += 1
+  end
+
+  puts "benchmark for adding 100000 items to binary tree"
+  puts Benchmark.measure {
+    tree = BinarySearchTree.new(root)
+    arry.each {|node| tree.insert(root, node)}
+  }
+  testTree = BinarySearchTree.new(root)
+  arry.each {|node| testTree.insert(root, node)}
+  puts "benchmark for finding number 50000 in tree"
+  puts Benchmark.measure {
+    tree.find("number 50000")
+  }
 end

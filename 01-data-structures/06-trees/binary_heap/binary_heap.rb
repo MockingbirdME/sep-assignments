@@ -22,35 +22,38 @@ class BinaryHeap
         parent = parent.right
       end
     end
+
     parent.descendants += 1
     while parent.parent
       parent = parent.parent
       parent.descendants += 1
     end
+
     while node.rating > node.parent.rating
-      parentPlaceholder = [node.parent.left, node.parent.right, node.parent.descendants]
-      nodePlaceholder = [node.left, node.right, node.descendants]
+      nodeClone = node.clone
       parent = node.parent
-      if parent.parent.left == parent
-        parent.parent.left = node
-        node.parent = parent.parent
-      elsif parent.parent.right == parent
-        parent.parent.right = node
-        node.parent = parent.parent
+      grandParent = node.parent.parent
+      parentClone = parent.clone
+      if grandParent.left == parent
+        grandParent.left = node
+      else
+        grandParent.right = node
       end
-      parent.parent = node
-      parent.left = nodePlaceholder[0]
-      parent.right = nodePlaceholder[1]
-      parent.descendants = nodePlaceholder[2]
-      if parentPlaceholder[0].title == node.title
+      if parent.left == node
         node.left = parent
-        node.right = parentPlaceholder[1]
-      elsif parentPlaceholder[1].title == node.title
+        node.right = parent.right
+      else
         node.right = parent
-        node.left = parentPlaceholder[0]
+        node.left = parent.left
       end
-      node.descendants = parentPlaceholder[2]
+      node.parent = parent.parent
+      parent.parent = node
+      parent.left = nodeClone.left
+      parent.right = nodeClone.right
+      parent.descendants -= 1
+      node.descendants += 1
     end
+
   end
 
   def delete(root, data)
@@ -64,11 +67,13 @@ class BinaryHeap
         replacement = replacement.left
       end
     end
+
     if replacement.parent.right == replacement
       replacement.parent.right = nil
     elsif replacement.parent.left == replacement
       replacement.parent.left = nil
     end
+
     if node.title == replacement.title
       node = nil
     else
