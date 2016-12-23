@@ -1,0 +1,71 @@
+Print both Trees to the console and compare the difference between your Binary Search Tree and your Heap.
+    using the code:
+            root = Node.new("The Terminator", 100)
+            aliens = Node.new("Aliens", 98)
+            apocalypse = Node.new("Apocalypse Now redux", 90)
+            alien = Node.new("Alien", 97)
+            jedi = Node.new("Star Wars: Return of the Jedi", 80)
+            rings = Node.new("The Lord of the Rings", 50)
+            strawberries = Node.new("Wild Strawberries", 95)
+            rogue = Node.new("Rogue One: A Star Wars Story", 84)
+            hobbit = Node.new("The Hobbit", 67)
+            hope = Node.new("Star Wars: A New Hope", 93)
+            empire = Node.new("Star Wars: The Empire Strikes Back", 94)
+            awakens = Node.new("Star Wars: The Force Awakens", 92)
+
+            heap = BinaryHeap.new(root)        || heap = BinarySearchTree
+            heap.insert(root, apocalypse)
+            heap.insert(root, aliens)
+            heap.insert(root, strawberries)
+            heap.insert(root, empire)
+            heap.insert(root, jedi)
+            heap.insert(root, hobbit)
+            heap.insert(root, rings)
+            heap.insert(root, hope)
+            heap.insert(root, awakens)
+            heap.insert(root, alien)
+            heap.insert(root, rogue)
+
+
+            heap.printf
+
+            I got the following results:
+
+        Heap                                    Search Tree
+The Terminator: 100                       The Terminator: 100
+Alien: 97                                 Apocalypse Now redux: 90
+Aliens: 98                                Star Wars: Return of the Jedi: 80
+Star Wars: A New Hope: 93                 Aliens: 98
+Wild Strawberries: 95                     The Hobbit: 67
+Rogue One: A Star Wars Story: 84          Rogue One: A Star Wars Story: 84
+The Hobbit: 67                            Wild Strawberries: 95
+The Lord of the Rings: 50                 The Lord of the Rings: 50
+Apocalypse Now redux: 90                  Star Wars: The Empire Strikes Back: 94
+Star Wars: The Force Awakens: 92          Alien: 97
+Star Wars: The Empire Strikes Back: 94    Star Wars: A New Hope: 93
+Star Wars: Return of the Jedi: 80         Star Wars: The Force Awakens: 92
+
+
+
+using the same data for both the heap and the search tree yields some odd results as the heap uses the highest rated movie as it's root but doing so in the search tree gives a one sided tree making things rather unbalanced.  The heap causes the lower rated movies to move towards the bottom leaving them either on the lowest level or the second lowest where the lowest is incomplete and they have no children; the tree example instead ends up with many of these becoming leaves higher up in the tree than might be expected resulting in a lack of conformity.
+
+2 - benchmarks:
+
+benchmark for adding 100000 items to binary tree
+  0.470000   0.000000   0.470000 (  0.488782)
+benchmark for adding 100000 items to binary heap
+  0.670000   0.020000   0.690000 (  0.702455)
+benchmark for finding number 50000 in tree
+  0.010000   0.000000   0.010000 (  0.003660)
+benchmark for finding number 50000 in heap
+  0.000000   0.000000   0.000000 (  0.000006)
+benchmark for deleting number 3 in tree
+  0.010000   0.000000   0.010000 (  0.015303)
+benchmark for deleting number 3 in heap
+  0.000000   0.000000   0.000000 (  0.000016)
+benchmark for deleting number 3000 in tree
+  0.010000   0.000000   0.010000 (  0.007922)
+benchmark for deleting number 3000 in heap
+  0.000000   0.000000   0.000000 (  0.000013)
+
+  my data on delete may be a bit off as I was having issues with delete from heap and want to make sure to ask Richard about it, those numbers still line up pretty well with the find function's time of each which is a major part of the delete function. This aside it appears binary heaps are significantly faster at everything but inserting additional elements.  Given this data it would seem that a search tree is more useful when lots of data is being added to it but is only occasionally searched or has an item deleted whereas a heap would be more effective when it is searched or has items deleted more frequently than it has items added to it. 
