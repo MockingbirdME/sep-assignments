@@ -1,0 +1,68 @@
+1.  Using proper pseudo-code, describe three or more primitive algorithms used in your day-to-day life. Write your answers in a file called intro_algorithms_answers.txt. Here are some ideas:
+
+  calculating a tip:
+    def calculatingTip(bill)
+      tip = (bill * .2)
+      if (the service was good)
+        if tip * .5 > 2
+          tip += tip * .5
+        else
+          tip += tip + 2
+        end
+      else
+        if serviceWasBad
+          tip -= tip * .5
+        elsif serviceWasReallyBad
+          askForManager(server)
+        end
+      end
+    end
+
+  determining what to wear:
+    def gettingDressed(chest_of_drawers, closet)
+      underGarments = [underpants, undershirt, socks]
+      clothesToWear = []
+      underGarments.each do |item|
+        clothesToWear << chest_of_drawers.item[0]
+      end
+      if okToWearJeans
+        clothes_to_wear << chest_of_drawers.jeans[0]
+        if goingToWork
+          clothes_to_wear << chest_of_drawers.dressSocks[0]
+        else
+          clothes_to_wear << chest_of_drawers.comfySocks[0]
+        end
+      else
+        clothes_to_wear << closet.slacks[0]
+        clothes_to_wear << chest_of_drawers.dressSocks[0]
+      end
+      if goingToWork || wantToLookNice
+        i = 0
+        clothes_to_wear << closet.shirt[0]
+        while wifeDoesntLikesMyOutfit
+          clothes_to_wear.pop
+          i += 1
+          clothes_to_wear << closet.shirt[i]
+        end
+      else
+        clothes_to_wear << chest_of_drawers.tShirt[0]
+      end
+      clothesToWear.each { |item| putOn(item)}
+    end
+
+  getting to work:
+    def goingToWork(currentLocation)
+      getToKitchen(currentLocation)
+      walkDownHallway
+      goUpStairs
+      rotate(90, right)
+      advancePaces(2)
+      rotate(120, left)
+      openDoor(office)
+      advancePaces(1)
+      rotate(180)
+      closeDoor(office)
+      rotate(150, left)
+      advancePaces(2)
+      sit(officeChair)
+    end
