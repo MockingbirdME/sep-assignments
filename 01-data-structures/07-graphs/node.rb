@@ -8,10 +8,12 @@ end
 def find_kevin_bacon(startNode, currentArray)
   currentArray = currentArray
   return currentArray if startNode.name == "Kevin Bacon"
-  startNode.film_actor_hash.each do |film|
-    film.each do |actor|
-      sendingArray = currentArray << film
-      find_kevin_bacon(actor, sendingArray)
+  if currentArray.length < 6
+    startNode.film_actor_hash.each do |film|
+      film.each do |actor|
+        sendingArray = currentArray << film
+        find_kevin_bacon(actor, sendingArray)
+      end
     end
   end
 end

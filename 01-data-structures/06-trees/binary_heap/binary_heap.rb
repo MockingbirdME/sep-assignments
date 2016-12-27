@@ -59,6 +59,7 @@ class BinaryHeap
   def delete(root, data)
     return nil if data == nil
     node = find(root, data)
+    return nil if node == nil
     replacement = root
     while replacement.left || replacement.right
       if replacement.right
@@ -86,8 +87,6 @@ class BinaryHeap
         node.parent.right = replacement
       end
     end
-
-
   end
 
   def find(root, data)
