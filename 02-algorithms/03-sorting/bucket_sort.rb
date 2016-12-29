@@ -1,4 +1,5 @@
-def bucketSort(array)
+def bucketSort(array, n = false)
+  return array if n
   arry = array
   max = findMax(arry)
   numberOfBuckets = arry.length
@@ -12,7 +13,7 @@ def bucketSort(array)
   returnArry = []
   buckets.each do |bkt|
     if bkt.length > 1
-      bkt = bucketSort(bkt)
+      bkt = bucketSort(bkt, true)
     end
     bkt.each { |item| returnArry << item  } unless bkt.empty?
   end
