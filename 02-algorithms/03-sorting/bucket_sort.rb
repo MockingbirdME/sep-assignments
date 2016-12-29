@@ -1,7 +1,8 @@
-def bucketSort(array, n = false)
-  return array if n
+require_relative 'quick_sort.rb'
+
+def bucketSort(array)
   arry = array
-  max = findMax(arry)
+  max = array.max
   numberOfBuckets = arry.length
   buckets = Array.new(numberOfBuckets) { [] }
 
@@ -13,17 +14,9 @@ def bucketSort(array, n = false)
   returnArry = []
   buckets.each do |bkt|
     if bkt.length > 1
-      bkt = bucketSort(bkt, true)
+      bkt = quickSort(bkt)
     end
     bkt.each { |item| returnArry << item  } unless bkt.empty?
   end
   returnArry
-end
-
-def findMax(array)
-  max = array[0]
-  array.each do |x|
-    max = x if x > max
-  end
-  max
 end

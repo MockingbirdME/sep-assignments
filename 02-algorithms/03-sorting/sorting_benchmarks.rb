@@ -4,19 +4,29 @@ require_relative 'heap_sort.rb'
 require_relative 'quick_sort.rb'
 require 'benchmark'
 
-def benchmarks
-  arryForQuick = randArr()
-  arryForHeap = randArr()
-  arryForBucket = randArr()
+def benchmarks(i)
+  arryForQuick = []
+  arryForHeap = []
+  arryForBucket = []
 
-  puts "benchmark for quick sort"
-  puts Benchmark.measure {quickSort(arryForQuick)}
+  i.times do
+    x = randArr
+    arryForQuick << x.clone
+    arryForHeap << x.clone
+    arryForBucket << x.clone
+  end
 
-  puts "benchmark for heap sort"
-  puts Benchmark.measure {heapSort(arryForHeap)}
-
-  puts "benchmark for bucket sort"
-  puts Benchmark.measure {bucketSort(arryForBucket)}
+  Benchmark.bm(10) do |x|
+    x.report("quick") do
+      i.times {|j| quickSort(arryForQuick[j])}
+    end
+    x.report("heap") do
+      i.times {|j| heapSort(arryForHeap[j])}
+    end
+    x.report("bucket") do
+      i.times {|j| bucketSort(arryForBucket[j])}
+    end
+  end
 
 end
 
@@ -27,4 +37,6 @@ def randArr
   arr
 end
 
-benchmarks
+
+
+benchmarks(10000)

@@ -1,28 +1,24 @@
-my raw data for benchmarks only produces a value for the last measure (elapsed real time).  the data is as follows
+my raw data for the sum of 10000 iterations of each sort type are:
 
-quick_sort:  0.000115
-heap_sort:   0.000099
-bucket_sort: 0.000032
+                user     system      total        real
+quick        0.700000   0.010000   0.710000 (  0.720578)
+heap         0.600000   0.010000   0.610000 (  0.616574)
+bucket       0.340000   0.000000   0.340000 (  0.341930)
 
-because the assignment requests a bar chart here is it rounded to the nearest hundred thousandth of a second:
+because the assignment requests a bar chart here is it for the real time rounded to the nearest tenth of a second:
 
 time
           |
-0.00012   |       X
-0.00011   |       X
-0.00010   |       X             X
-0.00009   |       X             X
-0.00008   |       X             X
-0.00007   |       X             X
-0.00006   |       X             X
-0.00005   |       X             X
-0.00004   |       X             X
-0.00003   |       X             X             X
-0.00002   |       X             X             X
-0.00001   |       X             X             X
-0.00000   |       X             X             X
+0.7       |       X
+0.6       |       X             X
+0.5       |       X             X
+0.4       |       X             X
+0.3       |       X             X             X
+0.2       |       X             X             X
+0.1       |       X             X             X
+0.0       |       X             X             X
           |________________________________________________
               Quick Sort    Heap Sort     Bucket Sort
 
 
-the data on timing is not what I would have expected.  Bucket sort being, by far the fastest, surprises me; I wonder how it's speed would differ with variant numbers of buckets.  I assumed heap sort would be faster than quick sort as quick sort requires both iteration and recursion while heap only requires iteration over a array that get's increasingly smaller.  I'm going to guess the bucket sort being so much faster is a result of it only needing recursion occasionally, only ever once, and on much smaller array's than quick sort does all the while requiring much fewer steps than heap sort. 
+heap sort is faster than quick sort likely due to the amount of time slice! takes in the quick sort recursion; should this be refactored to pass start and end variables quick sort would likely become much faster.  Bucket is so much faster because the example data is fairly evenly distributed allowing for very few calls to quick sort each of which will require few, if any, recursions. 
