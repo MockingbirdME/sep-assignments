@@ -1,0 +1,42 @@
+1.  Describe an analogy for relating an algorithm that has efficiency O(1) and another algorithm that has O(2n).
+      Imagine an elderly person who moves with a walker, carefully picking each foothold as they progress through their journey; we'll call them Edger.  When edger has to move up to the next floor he has two options, he can take the stairs or he can take the elevator.  When he takes the elevator he advances up floors at a constant rate with the time it takes to go up, or down, one floor being exactly one forth the time it takes to go up four.  When he takes the stairs he gets progressively slower has he goes up more and more floors due to him getting tired and needing to rest so while it may only take him a minute to walk up one flight of stairs it could take him nearly 20 minutes to make it up four floors.  In this analogy the elevator has an O(1) efficiency while taking the stairs is more representative of a 0(n^2) efficiency.
+
+2.  In plain English, what is the best case scenario for binary search?
+      the best case scenario for a binary search is that the item you are looking for is directly in the middle of the sorted array so that it is found on the first attempt.
+
+3.  In plain English, what is the worst-case scenario for binary search?
+      the most number of attempts a binary search would take is O(log n) meaning that while the number of items in the array being guessed from increase so does the number of guesses needed but at a much slower rate.  for example an array of 10 items requires, at most, 4 guesses and making that array 100 items long only increases the number of guesses needed to 7.
+
+4.  In plain English, what is the bounded-case scenario for binary search?
+      on average a binary search will require somewhere between one guess and the maximum number, I'm not sure how this is rounded for computer science, but in the above example of 10 items requiring at most 4 guesses and 100 requiring up to 7 I would think that on average 10 items would find the number they're looking for in 2-3 guesses and the item being searched for in a 100 item array would generally require around 4 guesses.
+
+5.  Create a graph using the data below. Here's a CSV with the values you'll need.
+      no.  the data doesn't tell me what its for to know how best to display it and if trying to make a graph in this .txt document the only simple one is a bar graph which will not be worth while with the given data set as the y axis requires numbers ranging from 1 to 1024 so would either not be to scale or not readable on a single screen in this format.  If I truly need to give a graph of this I'm happy to make one using a program equipped for it or a piece of graph paper.
+
+      edit - made on on tab two of the google doc that was asked for in question 9.
+
+6.  What's the asymptotic limit as n approaches infinity for the function defined by the values above?
+      the data given in the file appears to be a O(2^n) algorithm which means as n approaches infinity the limit is also infinity.
+
+7.  What is the Big-O of an algorithm that has the data points above?
+      O(2^n)
+
+8.  Write a Ruby script that calculates and prints the input size to iterations for the worst-case similar to the graph above for linear search.
+      def linSearchWorstCaseIterations(n)
+        puts "inputSize | iterations"
+        n.times do |x|
+          puts "  #{x}       |    #{x}"
+        end
+      end
+
+
+9.  Create a graph from the output using Google Sheets or other graphing software. Analyze the graph and denote its Big-O somewhere on the graph.
+
+10.  What is the Big-O of binary search?
+        O(log n)
+
+11.  What is the Big-Ω of binary search?
+        O(1)
+
+12.  What is the Big-Ө of binary search?
+        O(log n)  ???  there is no level of complexity between O(1) and O(log n), I'm guessing it rounds up... also wikipedia says so.
