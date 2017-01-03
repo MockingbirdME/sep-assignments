@@ -1,5 +1,5 @@
 1.  Describe an analogy for relating an algorithm that has efficiency O(1) and another algorithm that has O(2n).
-      Imagine an elderly person who moves with a walker, carefully picking each foothold as they progress through their journey; we'll call them Edger.  When edger has to move up to the next floor he has two options, he can take the stairs or he can take the elevator.  When he takes the elevator he advances up floors at a constant rate with the time it takes to go up, or down, one floor being exactly one forth the time it takes to go up four.  When he takes the stairs he gets progressively slower has he goes up more and more floors due to him getting tired and needing to rest so while it may only take him a minute to walk up one flight of stairs it could take him nearly 20 minutes to make it up four floors.  In this analogy the elevator has an O(1) efficiency while taking the stairs is more representative of a 0(n^2) efficiency.
+      Imagine an elderly person who moves with a walker, carefully picking each foothold as they progress through their journey; we'll call them Edger.  When edger has to move up to the next floor he has two options, he can take the stairs or he can take the elevator.  When he takes the elevator he advances up floors at a constant rate with the time it takes to go up, or down, one floor being exactly one forth the time it takes to go up four.  When he takes the stairs he gets progressively slower has he goes up more and more floors due to him getting tired and needing to rest so while it may only take him a minute to walk up one flight of stairs it could take him nearly 20 minutes to make it up four floors. Now imagine he has access to Star Trek teleportation (beaming?) technology; no matter how many floors he needs to go up it takes exactly the same amount of time as the transportation happens instantly.  In this analogy the elevator has an O(n) efficiency while taking the stairs is more representative of a 0(n^2) efficiency and the transporter has a O(1) efficiency.
 
 2.  In plain English, what is the best case scenario for binary search?
       the best case scenario for a binary search is that the item you are looking for is directly in the middle of the sorted array so that it is found on the first attempt.
@@ -39,4 +39,4 @@
         O(1)
 
 12.  What is the Big-Ө of binary search?
-        O(log n)  ???  there is no level of complexity between O(1) and O(log n), I'm guessing it rounds up... also wikipedia says so.
+        O(log n)
