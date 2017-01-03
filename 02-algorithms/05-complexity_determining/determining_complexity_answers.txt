@@ -1,0 +1,170 @@
+1.  What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+                      def goodbye_world(n)
+                        puts "Goodbye World! #{n}"
+                      end
+
+      big-O of goodbye_world is O(1). No matter the value of n in this function there is only one line of code that needs to be called a single time; the fact that that one line needs to print the value of n does not cause the speed it takes to run to be greater based on that value.
+
+
+2.  What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+
+                      def find_largest(collection)
+                       largest = collection[0]
+                       collection.length.times do |i|
+                         if collection[i] >= largest
+                           largest = collection[i]
+                         end
+                       end
+                       largest
+                      end
+
+      big-O of find_largest is O(n).  The most impactful part of this function from a time perspective is the 'collection.length.times' loop that must be called a number of times equal to the length of the collection.
+
+
+3.  What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+
+                      def find_largest(collection)
+                       largest = collection[0][0]
+                       collection.length.times do |i|
+                         subcollection = collection[i]
+                         subcollection.length.times do |i|
+                           if subcollection[i] >= largest
+                             largest = subcollection[i]
+                           end
+                         end
+                       end
+                       largest
+                      end
+
+      I think the big-O of this 2D array version of find_largest is still O(n).  While there is a subcollection loop within the collection loop the most time consuming part of this is the subcollection loop which is ultimately called n times where n is the sum of the length of each of the 1D arrays within the 2D array.
+
+
+      Continuing from our conversation:  is the reason this function is big-O O(n^2) just because of the two while loops?  If I wrote it as a single loop but iterated over each data point would it then be O(n)?
+                      def whatImThinkingInTheParagraphAbove(collection)
+                        largest = collection[0][0]
+                        if collection.empty?
+                          i = nil
+                        else
+                          i = 0
+                          j = 0
+                        end
+                        while i.nil? == false
+                          if collection[i][j] && (collection[i][j] >= largest)
+                            largest = collection[i][j]
+                          end
+                          if j == collection[i].length-1
+                            if collection[i+1]
+                              j = 0
+                              i += 1
+                            else
+                              i = nil
+                            end
+                          else
+                            j += 1
+                          end
+                        end
+                        largest
+                      end
+
+
+
+4.  What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+
+                      numbers_recurive.rb
+                      def numbers(n)
+                       if (n == 0)
+                         return 0
+                       elsif (n == 1)
+                         return 1
+                       else
+                         return numbers(n-1) + numbers(n-2)
+                       end
+                      end
+      if n = 0 number of times it's called = 1
+      if n = 1 number of times it's called = 1
+      if n = 2 number of times it's called = 3 (once for n =2, once each for n=1 and n=0)
+      if n = 3 number of times it's called = 5 (once for n=3, three times for/from n-2, and once for n=1)
+      if n = 4 number of times it's called = 9 (once for n=4, 5 times from n = 3, 3 times from n=2)
+      (1, 1, 3, 5, 9, 15(5), 25, 41, 67, 109, 177(n=10), 287, 465, 753, 1219, 1973(15), 3193, 5167, 8361)
+
+
+      these data points most closely follow the curve of 2^n and as such the function has a big-O of O(2^n)
+
+      What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+
+                    numbers_iterative.rb
+                    def iterative(n)
+                     num1 = 0
+                     num2 = 1
+
+                     i = 0
+                     while i < n-1
+                       tmp = num1 + num2
+                       num1 = num2
+                       num2 = tmp
+                       i+=1
+                     end
+
+                     num2
+                    end
+
+      the dominant part of this function is the while loop which, in a worst case scenario, will run the same number of times as n thus giving the function a big-O of O(n)
+
+
+
+6.  What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+
+                  sort.rb
+                  def sort(collection, from=0, to=nil)
+                   if to == nil
+                     # Sort the whole collection, by default
+                     to = collection.count - 1
+                   end
+
+                   if from >= to
+                     # Done sorting
+                     return
+                   end
+
+                   # Take a pivot value, at the far left
+                   pivot = collection[from]
+
+                   # Min and Max pointers
+                   min = from
+                   max = to
+
+                   # Current free slot
+                   free = min
+
+                   while min < max
+                     if free == min # Evaluate collection[max]
+                       if collection[max] <= pivot # Smaller than pivot, must move
+                         collection[free] = collection[max]
+                         min += 1
+                         free = max
+                       else
+                         max -= 1
+                       end
+                     elsif free == max # Evaluate collection[min]
+                       if collection[min] >= pivot # Bigger than pivot, must move
+                         collection[free] = collection[min]
+                         max -= 1
+                         free = min
+                       else
+                         min += 1
+                       end
+                     else
+                       raise "Inconsistent state"
+                     end
+                   end
+
+                   collection[free] = pivot
+
+                   quick_sort collection, from, free - 1
+                   quick_sort collection, free + 1, to
+
+                   collection
+                  end
+
+
+      the while loop in this will run at O(n) but the two quick sorts being called at the end have a big-O of O(n^2), that being the, potentially, slowest part of the function means the function as a whole also has a big-O of O(n^2).
