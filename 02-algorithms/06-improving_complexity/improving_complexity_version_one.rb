@@ -17,7 +17,7 @@ def poorly_written_ruby(*arrays)
         sorted_array.insert(i, val)
         break
       elsif i == sorted_array.length - 1
-        sorted_array.insert(i, val)
+        sorted_array.push(val)
         break
       end
       i+=1
