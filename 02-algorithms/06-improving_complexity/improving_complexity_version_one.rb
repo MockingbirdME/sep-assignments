@@ -1,17 +1,15 @@
 # This method takes n arrays as input and combine them in sorted ascending  order
-def poorly_written_ruby(*arrays)
-  combined_array = []
-  arrays.each do |array|
-    array.each do |value|
-      combined_array << value
-    end
-  end
+def version_one(*arrays)
+  combined_array = arrays.flatten
+  sorted_array = []
 
-  sorted_array = [combined_array[0]]
+
+  sorted_array << combined_array[0]
 
   (1..combined_array.length-1).each do |x|
     i = 0
     val = combined_array[x]
+
     while i < sorted_array.length
       if val <= sorted_array[i]
         sorted_array.insert(i, val)

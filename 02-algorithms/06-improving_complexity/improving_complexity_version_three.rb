@@ -1,10 +1,5 @@
-def poorly_written_ruby(*arrays)
-  combined_array = []
-  arrays.each do |array|
-    array.each do |value|
-      combined_array << value
-    end
-  end
+def version_three(*arrays)
+  combined_array = arrays.flatten
 
   sorted_array = [combined_array.delete_at(combined_array.length-1)]
 
@@ -24,6 +19,6 @@ def poorly_written_ruby(*arrays)
       i+=1
     end
   end
-  
+
   sorted_array
 end
