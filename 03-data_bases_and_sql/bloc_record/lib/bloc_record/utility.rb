@@ -16,6 +16,13 @@ module BlocRecord
        string.downcase
     end
 
+    def remove_underscore(snake_case_word)
+      words = snake_case_word.split(/([_])/)
+      camel_cased_word = words[0]
+      1..words.length-1 { |x| camel_cased_word += words[x].capitalize! }
+      camel_cased_word
+    end
+
     def sql_strings(value)
        case value
        when String
