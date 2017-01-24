@@ -18,9 +18,9 @@ module BlocRecord
 
     def remove_underscore(snake_case_word)
       word = snake_case_word.gsub(/([\/])/, '::')
-      words = word.split(/([_])/)
-      camel_cased_word = words[0]
-      1..words.length-1 { |x| camel_cased_word += words[x].capitalize! }
+      words = word.split(/[_]/)
+      camel_cased_word = words.shift
+      words.each { |x| camel_cased_word += x.capitalize }
       camel_cased_word
     end
 

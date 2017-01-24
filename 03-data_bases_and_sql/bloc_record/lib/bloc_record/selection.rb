@@ -12,7 +12,7 @@ module Selection
   end
 
   def find_by(attribute, value)
-    items = connection.get_itesm <<-SQL
+    items = connection.get_items <<-SQL
       SELECT * FROM #{table} WHERE #{attribute} = #{value}
     SQL
     items
