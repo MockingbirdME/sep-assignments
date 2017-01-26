@@ -91,6 +91,23 @@ module Selection
       rows_to_array(rows)
     end
 
+    def find_each(hashed_params)
+      find_in_batches(hashed_params) do |batch|
+        batch.each { |row| yield(row)}
+    end
+
+    def find_in_batches(hashed_params)
+      hashed_params[:start] = 0 if hashed_params[:start] == nil
+      hashed_params[:batch_size] = 5000 if hashed_params[:batch_size] == nil
+      rows = connection.execute <<-SQL
+        SELECT #{columns.join ","} FROM #{table};
+        LIMIT #{hashed_params[:batch_size]}
+        OFFSET #{hashed_params[:start]}
+      SQL
+
+      yield(rows)
+    end
+
     protected
 
     def method_missing(meth_symb, *args)
