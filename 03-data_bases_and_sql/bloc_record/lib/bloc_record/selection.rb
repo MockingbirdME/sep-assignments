@@ -6,6 +6,7 @@ module Selection
    if ids.length == 1
      find_one(ids.first)
    else
+     ids.each { |id| validate_id(id) }
      rows = connection.execute <<-SQL
        SELECT #{columns.join ","} FROM #{table}
        WHERE id IN (#{ids.join(",")});
@@ -16,6 +17,7 @@ module Selection
   end
 
   def find_one(id)
+    validate_id(id)
     row = connection.get_first_row <<-SQL
       SELECT #{columns.join ","} FROM #{table}
       WHERE id = #{id};
@@ -45,6 +47,9 @@ module Selection
     end
 
     def take(num=1)
+      unless num.is_a(Integer)
+        raise ArgumentError.new'argument for take must be a interger if one is supplied'
+      end
       if num > 1
         rows = connection.execute <<-SQL
           SELECT #{columns.join ","} FROM #{table}
@@ -86,6 +91,8 @@ module Selection
       rows_to_array(rows)
     end
 
+    protected
+
     def method_missing(meth_symb, *args)
       meth_string = meth_symb.to_s
       if meth_string =~ /^find_by_(.*)/
@@ -99,6 +106,14 @@ module Selection
     end
 
    private
+    def validate_id(id)
+      if (id.is_a?(Integer)) && (id >= 0)
+        return
+      else
+        raise ArgumentError.new'invalid id, id must be a non-negative interger'
+      end
+    end
+
    def init_object_from_row(row)
      if row
        data = Hash[columns.zip(row)]
