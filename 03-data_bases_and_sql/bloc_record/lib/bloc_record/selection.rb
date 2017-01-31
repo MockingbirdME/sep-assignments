@@ -133,10 +133,19 @@ module Selection
 
 
     def order(*args)
-      if args.count > 1
-        order = args.join(",")
-      else
-        order = args.first.to_s
+      order = ""
+      count = 0
+      args.each do |arg|
+        order += ", " if count > 0
+        case arg
+        when String
+          order += arg
+        when Symbol
+          order += arg.to_s
+        when Hash
+          arg.each { |k,v| order += "#{k} #{v}" }
+        end
+        count += 1
       end
       rows = connection.execute <<-SQL
         SELECT * FROM #{table}
@@ -151,6 +160,7 @@ module Selection
         rows = connection.execute <<-SQL
           SELECT * FROM #{table} #{joins}
         SQL
+      else
         case args.first
         when String
           rows = connection.execute <<-SQL
@@ -161,6 +171,8 @@ module Selection
             SELECT * FROM #{table}
             INNER JOIN #{args.first} ON #{args.first}.#{table}_id = #{table}.id
           SQL
+        when Hash
+          join("#{args.key}", "#{args.value}")
       end
 
       rows_to_array(rows)
@@ -185,7 +197,7 @@ module Selection
       if (id.is_a?(Integer)) && (id >= 0)
         return
       else
-        raise ArgumentError.new'invalid id, id must be a non-negative interger'
+        raise ArgumentError.new 'invalid id, id must be a non-negative interger'
       end
     end
 
