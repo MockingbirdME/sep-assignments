@@ -108,6 +108,76 @@ module Selection
       yield(rows)
     end
 
+    def where(*args)
+      if args.count > 1
+        expression = args.shift
+        params = args
+      else
+        case args.first
+        when String
+          expression = args.first
+        when Hash
+          expression_hash = BlocRecord::Utility.convert_keys(args.first)
+          expression = expression_hash.map {|key, value| "#{key}=#{BlocRecord::Utility.sql_strings(value)}"}.join(" and ")
+        end
+      end
+
+      sql = <<-SQL
+        SELECT #{columns.join ","} FROM #{table}
+        WHERE #{expression}
+      SQL
+
+      rows = connection.execute(sql, params)
+      rows_to_array(rows)
+    end
+
+
+    def order(*args)
+      order = ""
+      count = 0
+      args.each do |arg|
+        order += ", " if count > 0
+        case arg
+        when String
+          order += arg
+        when Symbol
+          order += arg.to_s
+        when Hash
+          arg.each { |k,v| order += "#{k} #{v}" }
+        end
+        count += 1
+      end
+      rows = connection.execute <<-SQL
+        SELECT * FROM #{table}
+        ORDER BY #{order};
+      SQL
+      rows_to_array(rows)
+    end
+
+    def join(*args)
+      if args.count > 1
+        joins = args.map { |arg| "INNER JOIN #{arg} ON #{arg}.#{table}_id = #{table}.id"}.join(" ")
+        rows = connection.execute <<-SQL
+          SELECT * FROM #{table} #{joins}
+        SQL
+      else
+        case args.first
+        when String
+          rows = connection.execute <<-SQL
+            SELECT * FROM #{table} #{BlocRecord::Utility.sql_strings(args.first)};
+          SQL
+        when Symbol
+          rows = connection.execute <<-SQL
+            SELECT * FROM #{table}
+            INNER JOIN #{args.first} ON #{args.first}.#{table}_id = #{table}.id
+          SQL
+        when Hash
+          join("#{args.key}", "#{args.value}")
+      end
+
+      rows_to_array(rows)
+    end
+
     protected
 
     def method_missing(meth_symb, *args)
@@ -127,7 +197,7 @@ module Selection
       if (id.is_a?(Integer)) && (id >= 0)
         return
       else
-        raise ArgumentError.new'invalid id, id must be a non-negative interger'
+        raise ArgumentError.new 'invalid id, id must be a non-negative interger'
       end
     end
 
