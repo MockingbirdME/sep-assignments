@@ -75,6 +75,28 @@ module Persistence
        data["id"] = connection.execute("SELECT last_insert_rowid();")[0][0]
        new(data)
      end
+
+     protected
+
+     def method_missing(meth_symb, *args)
+       meth_string = meth_symb.to_s
+       if meth_string =~ /^update_(.*)/
+         attribute = find_attr_for_update(meth_string)
+         unless attribute.nil
+           update_attribute(attribute, *args)
+         else
+           puts "no method #{meth_string}, please try again"
+         end
+       end
+     end
+
+     private
+
+     def find_attr_for_update(string)
+       arry = string.split(/[_]/)
+       arry.length == 2 ? arry[-1] : nil
+     end
+
    end
 
 end

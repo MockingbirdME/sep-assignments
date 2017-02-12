@@ -94,6 +94,7 @@ module Selection
     def find_each(hashed_params)
       find_in_batches(hashed_params) do |batch|
         batch.each { |row| yield(row)}
+      end
     end
 
     def find_in_batches(hashed_params)
@@ -155,28 +156,44 @@ module Selection
     end
 
     def join(*args)
+      puts "begin"
       if args.count > 1
         joins = args.map { |arg| "INNER JOIN #{arg} ON #{arg}.#{table}_id = #{table}.id"}.join(" ")
         rows = connection.execute <<-SQL
           SELECT * FROM #{table} #{joins}
         SQL
       else
+        puts "one arg"
         case args.first
         when String
+          puts "it's a string"
           rows = connection.execute <<-SQL
-            SELECT * FROM #{table} #{BlocRecord::Utility.sql_strings(args.first)};
+            SELECT * FROM #{table} #{args.first};
           SQL
+          puts "SELECT * FROM #{table} #{args.first}"
+        #  puts rows
         when Symbol
+          puts "it's a symbol"
           rows = connection.execute <<-SQL
             SELECT * FROM #{table}
             INNER JOIN #{args.first} ON #{args.first}.#{table}_id = #{table}.id
           SQL
+          puts "SELECT * FROM #{table} INNER JOIN #{args.first} ON #{args.first}.#{table}_id = #{table}.id"
         when Hash
-          join("#{args.key}", "#{args.value}")
+          puts "it's a hash"
+          expression_hash = BlocRecord::Utility.convert_keys(args.first)
+          expression = expression_hash.map { |key, value| "#{key}=#{BlocRecord::Utility.sql_strings(value)}"}.join(",")
+          rows = connection.execute <<-SQL
+            SELECT * FROM #{table}
+            INNER JOIN #{expression[0]} ON #{expression[0]}.#{table}_id = #{table}.id
+            INNER JOIN #{expression[1]} ON #{expression[1]}.#{expression[0]}_id = #{table}.id
+          SQL
+        end
       end
-
+       puts "rows_to_array #{rows_to_array(rows)}"
       rows_to_array(rows)
     end
+
 
     protected
 
@@ -208,7 +225,7 @@ module Selection
      end
    end
 
-   def rows_to_array(rows)
+   def rows_to_array(rows, schema_columns = columns)
      collection = BlocRecord::Collection.new
      rows.each { |row| collection << new(Hash[columns.zip(row)]) }
      collection

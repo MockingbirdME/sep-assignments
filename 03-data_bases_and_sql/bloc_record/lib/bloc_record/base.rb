@@ -11,7 +11,7 @@ module BlocRecord
     extend Selection
     extend Schema
     extend Connection
-    extend Collection
+  #  extend Collection
 
     def initialize(options={})
        options = BlocRecord::Utility.convert_keys(options)
