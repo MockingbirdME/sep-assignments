@@ -16,6 +16,10 @@ module BlocRecord
     end
 =end
 
+    def destroy_all
+        self.each { |item| item.destroy}
+    end
+
     def not(args)
       where(args, 1)
     end
@@ -25,7 +29,6 @@ module BlocRecord
       arg_key = nil
       arg_value = nil
       if arg.class == String
-        puts "where arg is string"
         arg_parts = arg.split(' ')
         if arg_parts.length == 3 && (arg_parts[1].downcase == 'IS')
           arg_key = arg_parts[0]
