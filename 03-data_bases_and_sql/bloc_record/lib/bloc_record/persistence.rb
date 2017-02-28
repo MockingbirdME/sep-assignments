@@ -109,10 +109,14 @@ module Persistence
           DELETE FROM #{table}
           WHERE #{conditions};
         SQL
-      else
-        connection.execute <<-SQL
-          DELETE FROM #{table}
-        SQL
+        else
+          if self.class == Array
+            self.clear
+          else
+            connection.execute <<-SQL
+              DELETE FROM #{table}
+            SQL
+          end
       end
       true
     end

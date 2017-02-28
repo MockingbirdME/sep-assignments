@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73a4b534-db00-461d-9bed-72e1471af6bd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb" afterPath="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb" afterPath="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,21 +17,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="persistence.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="persistence.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
-              <caret line="116" column="10" lean-forward="true" selection-start-line="116" selection-start-column="10" selection-end-line="116" selection-end-column="10" />
+            <state relative-caret-position="566">
+              <caret line="135" column="9" lean-forward="true" selection-start-line="135" selection-start-column="9" selection-end-line="135" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="collection.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="collection.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -70,8 +68,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb" />
         <option value="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb" />
+        <option value="$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb" />
       </list>
     </option>
   </component>
@@ -309,16 +307,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1487766043091</updated>
-      <workItem from="1487766045305" duration="3125000" />
+      <workItem from="1487766045305" duration="4461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3125000" />
+    <option name="totallyTimeSpent" value="4461000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="640" y="-1001" width="640" height="1001" extended-state="6" />
-    <editor active="false" />
+    <frame x="640" y="-1001" width="640" height="1001" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -369,18 +367,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb">
+    <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="116" column="10" lean-forward="true" selection-start-line="116" selection-start-column="10" selection-end-line="116" selection-end-column="10" />
+        <state relative-caret-position="345">
+          <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/collection.rb">
+    <entry file="file://$PROJECT_DIR$/03-data_bases_and_sql/bloc_record/lib/bloc_record/persistence.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="566">
+          <caret line="135" column="9" lean-forward="true" selection-start-line="135" selection-start-column="9" selection-end-line="135" selection-end-column="9" />
           <folding />
         </state>
       </provider>
