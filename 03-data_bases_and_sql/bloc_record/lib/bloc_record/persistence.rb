@@ -109,7 +109,7 @@ module Persistence
           DELETE FROM #{table}
           WHERE #{conditions};
         SQL
-        else
+        end
           if self.class == Array
             self.clear
           else
