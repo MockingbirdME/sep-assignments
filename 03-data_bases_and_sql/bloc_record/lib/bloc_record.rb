@@ -1,6 +1,6 @@
 module BlocRecord
   def self.connect_to(filename, dbType)
-    if dbType == :pg
+    if dbType.to_s == ':pg'
       @database_tableName = filename
     else
       @database_filename = filename

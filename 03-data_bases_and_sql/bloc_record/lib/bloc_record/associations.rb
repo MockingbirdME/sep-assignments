@@ -5,19 +5,18 @@ module Associations
   def has_many(association)
     define_method(association) do
       rows = self.class.connection.execute <<-SQL
-        SELECT * FROM #{association.to_s.singularize}
-        WHERE #{self.class.table}_id = #{self.id}
+         SELECT * FROM #{association.to_s.singularize}
+         WHERE #{self.class.table}_id = #{self.id}
       SQL
       class_name = association.to_s.classify.constantize
       collection = BlocRecord::Collection.new
       rows.each do |row|
         collection << class_name.new(Hash[class_name.columns.zip(row)])
-        collection
       end
+      collection
     end
   end
 
-  #ends function
 
   def belongs_to(association)
     define_method(association) do
@@ -26,12 +25,14 @@ module Associations
          SELECT * FROM #{association_name}
          WHERE id = #{self.send(association_name + "_id")}
       SQL
+
       class_name = association_name.classify.constantize
+
       if row
         data = Hash[class_name.columns.zip(row)]
         class_name.new(data)
       end
     end
-  end #ends belongs_to
+  end
 end #ends module
 
