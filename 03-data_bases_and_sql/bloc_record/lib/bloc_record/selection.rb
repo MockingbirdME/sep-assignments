@@ -1,4 +1,5 @@
 require 'sqlite3'
+require 'pg'
 
 module Selection
 
@@ -48,7 +49,7 @@ module Selection
 
   def take(num=1)
     unless num.is_a(Integer)
-      raise ArgumentError.new 'argument for take must be a interger if one is supplied'
+      raise ArgumentError.new 'argument for take must be a integer if one is supplied'
     end
     if num > 1
       rows = connection.execute <<-SQL
@@ -84,7 +85,8 @@ module Selection
   end
 
   def all
-    rows = connection.execute <<-SQL
+ #   rows = connection.execute
+     rows = db_exec <<-SQL
         SELECT #{columns.join ","} FROM #{table};
     SQL
 
