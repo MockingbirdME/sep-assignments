@@ -17,4 +17,12 @@ module Connection
       @connection.execute(command)
     end
   end
+
+  def db_get_first_row(command)
+    if BlocRecord.db_type = 'pg'
+      @connection.exec(command)
+    else
+      @connection.get_first_row(command)
+    end
+  end
 end

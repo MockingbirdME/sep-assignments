@@ -1,6 +1,6 @@
 module BlocRecord
-  def self.connect_to(dbname, dbType)
-    @db_type = dbType.to_s
+  def self.connect_to(dbname, db_type)
+    @db_type = db_type.to_s
     @database_name = dbname
   end
 
