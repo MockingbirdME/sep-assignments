@@ -24,10 +24,16 @@ module Schema
            FROM #{table}
            WHERE Id=0;
         SQL
+        p PG::Connection.column_definitions("address_book")
+        # p cols.public_methods.sort
+        p cols.values
+        p cols.fields
 
         cols.fields.each do |col|
+          p col
           @schema[col["name"]] = col["type"]
         end
+        p @schema
       else
         connection.table_info(table) do |col|
           @schema[col["name"]] = col["type"]

@@ -66,6 +66,8 @@ module Selection
 
   def first
     if BlocRecord.db_type == 'pg'
+
+      puts "c = >#{c}<"
       row = connection.exec <<-SQL
         SELECT #{columns.join ","} FROM #{table}
         ORDER BY id

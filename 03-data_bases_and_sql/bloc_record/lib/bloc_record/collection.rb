@@ -16,6 +16,7 @@ module BlocRecord
     end
 =end
 
+
     def destroy_all
         self.each { |item| item.destroy}
     end
